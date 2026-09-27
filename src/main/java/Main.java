@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println("Before: " + Arrays.toString(array));
 
-        MergeSorter sorter = new MergeSorter();
+        QuickSorter sorter = new QuickSorter(42);
 
         long start = System.nanoTime();
         sorter.sort(array);
