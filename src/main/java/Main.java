@@ -1,31 +1,28 @@
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
-        int[] array = {
-                9, 3, 7, 1, 8, 2, 6, 5, 4, 0,
-                15, 12, 18, 11, 14, 13, 17, 16, 3, -2
+        Point[] points = {
+                new Point(2, 3),
+                new Point(12, 30),
+                new Point(40, 50),
+                new Point(5, 1),
+                new Point(12, 10),
+                new Point(3, 4)
         };
 
-        int k = 7;
-
-        int[] expected = array.clone();
-        Arrays.sort(expected);
-
-        System.out.println("Array: " + Arrays.toString(array));
-        System.out.println("Index k: " + k);
-
-        DeterministicSelector selector = new DeterministicSelector();
+        ClosestPairSolver solver = new ClosestPairSolver();
 
         long start = System.nanoTime();
-        int result = selector.select(array, k);
+        double result = solver.solve(points);
         long elapsed = System.nanoTime() - start;
 
-        System.out.println("Selected value: " + result);
-        System.out.println("Expected value: " + expected[k]);
-        System.out.println("Correct: " + (result == expected[k]));
+        double expected = Math.sqrt(2);
+
+        System.out.println("Closest distance: " + result);
+        System.out.println("Expected distance: " + expected);
+        System.out.println("Correct: " +
+                (Math.abs(result - expected) < 1e-9));
         System.out.println("Time (ns): " + elapsed);
-        System.out.println("Max recursion depth: " + selector.getMaxDepth());
-        System.out.println("Comparisons: " + selector.getComparisons());
+        System.out.println("Max recursion depth: " + solver.getMaxDepth());
+        System.out.println("Distance checks: " + solver.getDistanceChecks());
     }
 }
