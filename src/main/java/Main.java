@@ -7,21 +7,25 @@ public class Main {
                 15, 12, 18, 11, 14, 13, 17, 16, 3, -2
         };
 
+        int k = 7;
+
         int[] expected = array.clone();
         Arrays.sort(expected);
 
-        System.out.println("Before: " + Arrays.toString(array));
+        System.out.println("Array: " + Arrays.toString(array));
+        System.out.println("Index k: " + k);
 
-        QuickSorter sorter = new QuickSorter(42);
+        DeterministicSelector selector = new DeterministicSelector();
 
         long start = System.nanoTime();
-        sorter.sort(array);
+        int result = selector.select(array, k);
         long elapsed = System.nanoTime() - start;
 
-        System.out.println("After: " + Arrays.toString(array));
-        System.out.println("Correct: " + Arrays.equals(array, expected));
+        System.out.println("Selected value: " + result);
+        System.out.println("Expected value: " + expected[k]);
+        System.out.println("Correct: " + (result == expected[k]));
         System.out.println("Time (ns): " + elapsed);
-        System.out.println("Max recursion depth: " + sorter.getMaxDepth());
-        System.out.println("Comparisons: " + sorter.getComparisons());
+        System.out.println("Max recursion depth: " + selector.getMaxDepth());
+        System.out.println("Comparisons: " + selector.getComparisons());
     }
 }
